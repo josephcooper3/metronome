@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import SpeedDisplay from '../components/SpeedDisplay';
-import SpeedSlider from '../components/SpeedSlider';
+import TempoDisplay from '../components/TempoDisplay';
+import TempoSlider from '../components/TempoSlider';
 import PlayButton from '../components/PlayButton';
 
 class MetronomeContainer extends Component {
@@ -8,9 +8,11 @@ class MetronomeContainer extends Component {
   constructor () {
     super();
     this.state = {
+      minTempo: 40,
+      maxTempo: 218,
       tempo: 120,
       isPlaying: false,
-      noteLength: 0.05
+      intervalID: ''
     }
   }
 
@@ -19,8 +21,9 @@ class MetronomeContainer extends Component {
     const oscillator = audioCtx.createOscillator();
     oscillator.frequency.value = 440;
     oscillator.start(0);
-    oscillator.stop( + this.state.noteLength)
+    oscillator.stop(0 + 0.05)
     oscillator.connect(audioCtx.destination);
+    console.log("Beep!");
   }
 
   handlePlayButtonClick = () => {
@@ -28,19 +31,41 @@ class MetronomeContainer extends Component {
   }
 
   startMetronome = () => {
+    this.updatePlaying(true);
     console.log("Starting")
+
+    // Convert the tempo in beats per millisecond.
+    const interval = (60 / this.state.tempo) * 1000
+
+    // Set the interval, function to perform and update the state.
+    const intervalID = setInterval(() => {this.playBeep()}, interval);
+    this.setState({intervalID: intervalID})
   }
 
   stopMetronome = () => {
+    this.updatePlaying(false);
     console.log("Stopping")
+
+    // Clear the interval.
+    clearInterval(this.state.intervalID);
+  }
+
+  updatePlaying = (status) => {
+    this.setState({
+      isPlaying: status
+    });
   }
 
   render() {
     return (
       <>
         <h1>Metronome</h1>
-        <SpeedDisplay />
-        <SpeedSlider />
+        <TempoDisplay tempo={this.state.tempo} />
+        <TempoSlider 
+        minTempo={this.state.minTempo}
+        maxTempo={this.state.maxTempo}
+        tempo={this.state.tempo}
+        />
         <PlayButton handleClick={this.handlePlayButtonClick} />
       </>
     )
