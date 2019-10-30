@@ -58,6 +58,10 @@ class MetronomeContainer extends Component {
 
   handleTempoChange = (newTempo) => {
     this.setState({tempo: newTempo})
+    if (this.state.isPlaying) {
+      this.stopMetronome();
+      this.startMetronome();
+    }
   }
 
   render() {
