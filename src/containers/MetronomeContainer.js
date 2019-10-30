@@ -56,6 +56,10 @@ class MetronomeContainer extends Component {
     });
   }
 
+  handleTempoChange = (newTempo) => {
+    this.setState({tempo: newTempo})
+  }
+
   render() {
     return (
       <>
@@ -65,6 +69,7 @@ class MetronomeContainer extends Component {
         minTempo={this.state.minTempo}
         maxTempo={this.state.maxTempo}
         tempo={this.state.tempo}
+        handleTempoChange={this.handleTempoChange}
         />
         <PlayButton handleClick={this.handlePlayButtonClick} />
       </>
