@@ -1,8 +1,8 @@
 import React from 'react';
 
-const PlayButton = () => (
+const PlayButton = (props) => (
 
-  <h2>PlayButton</h2>
+  <button onClick={props.play}>Play</button>
 
 )
 

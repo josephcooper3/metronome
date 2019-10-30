@@ -13,13 +13,23 @@ class MetronomeContainer extends Component {
     }
   }
 
+  playBeep = () => {
+    // Browser support to be added.
+    const audioCtx = new AudioContext();
+    const oscillator = audioCtx.createOscillator();
+    oscillator.type = 'square'
+    oscillator.frequency.value = 200;
+    oscillator.start(0);
+    oscillator.connect(audioCtx.destination);
+  }
+
   render() {
     return (
       <>
         <h1>Metronome</h1>
         <SpeedDisplay />
         <SpeedSlider />
-        <PlayButton />
+        <PlayButton play={this.playBeep} />
       </>
     )
   }
