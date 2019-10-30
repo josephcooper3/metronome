@@ -8,18 +8,17 @@ class MetronomeContainer extends Component {
   constructor () {
     super();
     this.state = {
-      speed: 120,
+      tempo: 120,
       isPlaying: false
     }
   }
 
   playBeep = () => {
-    // Browser support to be added.
-    const audioCtx = new AudioContext();
+    const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
     const oscillator = audioCtx.createOscillator();
-    oscillator.type = 'square'
-    oscillator.frequency.value = 200;
+    oscillator.frequency.value = 440;
     oscillator.start(0);
+    oscillator.stop(0 + 0.05)
     oscillator.connect(audioCtx.destination);
   }
 
