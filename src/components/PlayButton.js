@@ -2,7 +2,7 @@ import React from 'react';
 
 const PlayButton = (props) => (
 
-  <button onClick={props.play}>Play</button>
+  <button onClick={props.handleClick}>Play</button>
 
 )
 

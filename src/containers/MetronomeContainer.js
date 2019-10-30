@@ -9,7 +9,8 @@ class MetronomeContainer extends Component {
     super();
     this.state = {
       tempo: 120,
-      isPlaying: false
+      isPlaying: false,
+      noteLength: 0.05
     }
   }
 
@@ -18,8 +19,20 @@ class MetronomeContainer extends Component {
     const oscillator = audioCtx.createOscillator();
     oscillator.frequency.value = 440;
     oscillator.start(0);
-    oscillator.stop(0 + 0.05)
+    oscillator.stop( + this.state.noteLength)
     oscillator.connect(audioCtx.destination);
+  }
+
+  handlePlayButtonClick = () => {
+    this.state.isPlaying ? this.stopMetronome() : this.startMetronome();
+  }
+
+  startMetronome = () => {
+    console.log("Starting")
+  }
+
+  stopMetronome = () => {
+    console.log("Stopping")
   }
 
   render() {
@@ -28,7 +41,7 @@ class MetronomeContainer extends Component {
         <h1>Metronome</h1>
         <SpeedDisplay />
         <SpeedSlider />
-        <PlayButton play={this.playBeep} />
+        <PlayButton handleClick={this.handlePlayButtonClick} />
       </>
     )
   }
