@@ -1,8 +1,8 @@
 import React from 'react';
 
-const PlayButton = (props) => (
+const PlayButton = ({handleClick, isPlaying}) => (
 
-  <button onClick={props.handleClick}>Play</button>
+  <button onClick={handleClick}>{isPlaying ? "Stop" : "Start"}</button>
 
 )
 

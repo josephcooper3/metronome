@@ -75,7 +75,10 @@ class MetronomeContainer extends Component {
         tempo={this.state.tempo}
         handleTempoChange={this.handleTempoChange}
         />
-        <PlayButton handleClick={this.handlePlayButtonClick} />
+        <PlayButton 
+        handleClick={this.handlePlayButtonClick}
+        isPlaying={this.state.isPlaying}
+        />
       </>
     )
   }
